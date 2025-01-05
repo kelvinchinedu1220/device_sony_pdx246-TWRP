@@ -1,29 +1,42 @@
 #
-# Copyright (C) 2025 The Android Open Source Project
-# Copyright (C) 2025 SebaUbuntu's TWRP device tree generator
+# Copyright (C) 2023 The Android Open Source Project
 #
 # SPDX-License-Identifier: Apache-2.0
 #
 
-# Inherit from those products. Most specific first.
-$(call inherit-product, $(SRC_TARGET_DIR)/product/core_64_bit.mk)
-$(call inherit-product, $(SRC_TARGET_DIR)/product/full_base_telephony.mk)
+# Configure base.mk
+$(call inherit-product, $(SRC_TARGET_DIR)/product/base.mk)
 
-# Inherit some common Omni stuff.
-$(call inherit-product, vendor/omni/config/common.mk)
+# Configure core_64_bit_only.mk
+$(call inherit-product, $(SRC_TARGET_DIR)/product/core_64_bit_only.mk)
 
-# Inherit from pdx246 device
-$(call inherit-product, device/sony/pdx246/device.mk)
+# Configure Virtual A/B
+$(call inherit-product, $(SRC_TARGET_DIR)/product/virtual_ab_ota.mk)
 
-PRODUCT_DEVICE := pdx246
-PRODUCT_NAME := omni_pdx246
-PRODUCT_BRAND := Sony
-PRODUCT_MODEL := Pdx246
-PRODUCT_MANUFACTURER := sony
+# Configure virtual_ab compression.mk
+$(call inherit-product, $(SRC_TARGET_DIR)/product/virtual_ab_ota/compression.mk)
 
-PRODUCT_GMS_CLIENTID_BASE := android-sony
+# Configure emulated_storage.mk
+$(call inherit-product, $(SRC_TARGET_DIR)/product/emulated_storage.mk)
 
-PRODUCT_BUILD_PROP_OVERRIDES += \
-    PRIVATE_BUILD_DESC="pdx246-user 12 SKQ1.231127.001 1 release-keys"
+# Configure twrp common.mk
+$(call inherit-product, vendor/twrp/config/common.mk)
 
-BUILD_FINGERPRINT := Sony/pdx246/pdx246:12/SKQ1.231127.001/1:user/release-keys
+PRODUCT_PACKAGES += \
+    bootctrl.sony_sm6450.recovery \
+    android.hardware.boot@1.2-impl-qti.recovery
+
+# SHIPPING API
+PRODUCT_SHIPPING_API_LEVEL := 32
+
+# VNDK API
+PRODUCT_TARGET_VNDK_VERSION := 35
+
+# Dynamic partitions
+PRODUCT_USE_DYNAMIC_PARTITIONS := true
+
+# Soong namespaces
+PRODUCT_SOONG_NAMESPACES += $(DEVICE_PATH)
+
+TWRP_REQUIRED_MODULES += \
+    sony_prebuilt
