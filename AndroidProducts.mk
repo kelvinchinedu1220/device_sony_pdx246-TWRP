@@ -6,9 +6,7 @@
 #
 
 PRODUCT_MAKEFILES := \
-    $(LOCAL_DIR)/omni_pdx246.mk
+    $(LOCAL_DIR)/twrp_pdx246.mk
 
 COMMON_LUNCH_CHOICES := \
-    omni_pdx246-user \
-    omni_pdx246-userdebug \
-    omni_pdx246-eng
+    twrp_pdx246-eng
