@@ -92,10 +92,6 @@ PRODUCT_PROPERTY_OVERRIDES += \
     ro.bootimage.build.date.utc=0 \
     ro.build.date.utc=0
 
-# OEM otacert
-PRODUCT_EXTRA_RECOVERY_KEYS += \
-    $(LOCAL_PATH)/security/ota
-
 # Take a few libraries from sources
 TARGET_RECOVERY_DEVICE_MODULES += \
     android.hardware.vibrator-V2-ndk_platform.so \
