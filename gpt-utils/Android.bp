@@ -16,7 +16,7 @@
 
 
 cc_library {
-    name: "libgptutils.sony_sm8450",
+    name: "libgptutils.sony_sm6450",
     vendor: true,
     recovery_available: true,
     shared_libs: [
