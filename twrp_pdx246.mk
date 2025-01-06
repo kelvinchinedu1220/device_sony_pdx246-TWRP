@@ -1,13 +1,5 @@
 #
 # Copyright (C) 2023 The Android Open Source Project
-#
-# SPDX-License-Identifier: Apache-2.0
-#
-
-DEVICE_PATH := device/sony/pdx246
-
-#
-# Copyright (C) 2023 The Android Open Source Project
 # Copyright (C) 2023 SebaUbuntu's TWRP device tree generator
 #
 # SPDX-License-Identifier: Apache-2.0
