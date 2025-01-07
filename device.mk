@@ -75,10 +75,6 @@ PRODUCT_PROPERTY_OVERRIDES += \
     ro.bootimage.build.date.utc=0 \
     ro.build.date.utc=0
 
-# OEM otacert
-PRODUCT_EXTRA_RECOVERY_KEYS += \
-    $(LOCAL_PATH)/security/Sony-Ericsson-E-Application-Signing-Live-864f-1.x509.pem
-
 # Take a few libraries from sources
 TARGET_RECOVERY_DEVICE_MODULES += \
     android.hardware.vibrator-V2-ndk_platform.so \
