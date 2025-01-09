@@ -1,38 +1,42 @@
 #
 # Copyright (C) 2023 The Android Open Source Project
-# Copyright (C) 2023 SebaUbuntu's TWRP device tree generator
 #
 # SPDX-License-Identifier: Apache-2.0
 #
 
-# Soong namespaces
-PRODUCT_SOONG_NAMESPACES += \
-    $(LOCAL_PATH)
+# Configure base.mk
+$(call inherit-product, $(SRC_TARGET_DIR)/product/base.mk)
 
-# API
-BOARD_SHIPPING_API_LEVEL := 31
-BOARD_API_LEVEL := 31
-PRODUCT_SHIPPING_API_LEVEL := 31
-SHIPPING_API_LEVEL := 31
+# Configure core_64_bit.mk
+$(call inherit-product, $(SRC_TARGET_DIR)/product/core_64_bit.mk)
 
-# A/B
-AB_OTA_POSTINSTALL_CONFIG += \
-    RUN_POSTINSTALL_system=true \
-    POSTINSTALL_PATH_system=system/bin/otapreopt_script \
-    FILESYSTEM_TYPE_system=ext4 \
-    POSTINSTALL_OPTIONAL_system=true
+# Configure virtual_ab_ota launch_with_vendor_ramdisk.mk
+$(call inherit-product, $(SRC_TARGET_DIR)/product/virtual_ab_ota/launch_with_vendor_ramdisk.mk)
 
-AB_OTA_POSTINSTALL_CONFIG += \
-    RUN_POSTINSTALL_vendor=true \
-    POSTINSTALL_PATH_vendor=bin/checkpoint_gc \
-    FILESYSTEM_TYPE_vendor=ext4 \
-    POSTINSTALL_OPTIONAL_vendor=true
+# Configure emulated_storage.mk
+$(call inherit-product, $(SRC_TARGET_DIR)/product/emulated_storage.mk)
 
-# Boot control HAL
+# Configure twrp common.mk
+$(call inherit-product, vendor/twrp/config/common.mk)
+
 PRODUCT_PACKAGES += \
-    android.hardware.boot@1.2-impl-qti \
-    android.hardware.boot@1.2-impl-qti.recovery \
-    android.hardware.boot@1.2-service
+    bootctrl.sony_sm6450.recovery \
+    android.hardware.boot@1.2-impl-qti.recovery
+
+# SHIPPING API
+PRODUCT_SHIPPING_API_LEVEL := 31
+
+# VNDK API
+PRODUCT_TARGET_VNDK_VERSION := 32
+
+# Dynamic partitions
+PRODUCT_USE_DYNAMIC_PARTITIONS := true
+
+# Soong namespaces
+PRODUCT_SOONG_NAMESPACES += $(DEVICE_PATH)
+
+TWRP_REQUIRED_MODULES += \
+    sony_prebuilt
 
 PRODUCT_PACKAGES_DEBUG += \
     bootctl
@@ -59,21 +63,10 @@ PRODUCT_PACKAGES += \
 # Dynamic partitions
 PRODUCT_USE_DYNAMIC_PARTITIONS := true
 
-# F2FS utilities
-PRODUCT_PACKAGES += \
-    sg_write_buffer \
-    f2fs_io \
-    check_f2fs
-
 # Fastbootd
 PRODUCT_PACKAGES += \
     fastbootd \
     android.hardware.fastboot@1.1-impl-mock
-
-# HACK: Set vendor patch level
-PRODUCT_PROPERTY_OVERRIDES += \
-    ro.bootimage.build.date.utc=0 \
-    ro.build.date.utc=0
 
 # Take a few libraries from sources
 TARGET_RECOVERY_DEVICE_MODULES += \
