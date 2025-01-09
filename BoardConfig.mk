@@ -50,6 +50,10 @@ BOARD_MKBOOTIMG_ARGS += --header_version $(BOARD_BOOTIMG_HEADER_VERSION)
 BOARD_KERNEL_IMAGE_NAME := Image
 TARGET_KERNEL_CONFIG := pdx246_defconfig
 TARGET_KERNEL_SOURCE := kernel/sony/pdx246
+BOARD_KERNEL_CMDLINE          += video=vfb:640x400,bpp=32,memsize=3072000
+BOARD_KERNEL_CMDLINE          += nosoftlockup
+BOARD_KERNEL_BASE             := 0x00000000
+BOARD_KERNEL_PAGESIZE         := 4096
 
 # Kernel - prebuilt
 TARGET_FORCE_PREBUILT_KERNEL := true
