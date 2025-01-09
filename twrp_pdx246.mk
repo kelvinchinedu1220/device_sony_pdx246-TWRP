@@ -1,29 +1,23 @@
 #
 # Copyright (C) 2023 The Android Open Source Project
-# Copyright (C) 2023 SebaUbuntu's TWRP device tree generator
 #
 # SPDX-License-Identifier: Apache-2.0
 #
 
-# Inherit from those products. Most specific first.
-$(call inherit-product, $(SRC_TARGET_DIR)/product/base.mk)
-$(call inherit-product, $(SRC_TARGET_DIR)/product/core_64_bit_only.mk)
-$(call inherit-product, $(SRC_TARGET_DIR)/product/gsi_keys.mk)
-$(call inherit-product, $(SRC_TARGET_DIR)/product/updatable_apex.mk)
-$(call inherit-product, $(SRC_TARGET_DIR)/product/emulated_storage.mk)
-$(call inherit-product, $(SRC_TARGET_DIR)/product/virtual_ab_ota.mk)
+DEVICE_PATH := device/sony/pdx246
 
-# Inherit some common TWRP stuff.
-$(call inherit-product, vendor/twrp/config/common.mk)
+# Inherit from device.mk configuration
+$(call inherit-product, $(DEVICE_PATH)/device.mk)
 
-# Inherit from lynkco device
-$(call inherit-product, device/sony/pdx246/device.mk)
+# Release name
+PRODUCT_RELEASE_NAME := pdx246
 
-# Device identifier
+## Device identifier
 PRODUCT_DEVICE := pdx246
 PRODUCT_NAME := twrp_pdx246
 PRODUCT_BRAND := Sony
-PRODUCT_MODEL := Xperia 10vi
+PRODUCT_MODEL := Xperia 10 vi
 PRODUCT_MANUFACTURER := Sony
 
-PRODUCT_GMS_CLIENTID_BASE := android-motorola
+# Assert
+TARGET_OTA_ASSERT_DEVICE := pdx246
